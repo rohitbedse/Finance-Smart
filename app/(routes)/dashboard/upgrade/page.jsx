@@ -15,7 +15,7 @@ function Upgrade() {
               <p className="mt-2 sm:mt-4">
                 <strong className="text-3xl font-bold text-gray-900 sm:text-4xl">
                   {" "}
-                  30${" "}
+                  30₹{" "}
                 </strong>
 
                 <span className="text-sm font-medium text-gray-700">
@@ -158,7 +158,7 @@ function Upgrade() {
               <p className="mt-2 sm:mt-4">
                 <strong className="text-3xl font-bold text-gray-900 sm:text-4xl">
                   {" "}
-                  20${" "}
+                  20₹{" "}
                 </strong>
 
                 <span className="text-sm font-medium text-gray-700">
