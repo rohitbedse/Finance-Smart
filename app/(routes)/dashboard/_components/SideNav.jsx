@@ -64,48 +64,48 @@ function SideNav() {
   }, [path]);
 
   return (
-    <div className="h-screen p-5 border shadow-sm bg-gray-50 dark:bg-gray-900">
-      {/* Logo */}
-      <div className="flex flex-row items-center">
-        <Image src={"./chart-donut.svg"} alt="logo" width={40} height={25} />
-        <span className="text-blue-800 dark:text-blue-400 font-bold text-xl">
-          FinanSmart
-        </span>
+    <div className="h-screen p-5 border shadow-sm bg-gray-50 dark:bg-gray-900 flex flex-col justify-between">
+      {/* Top Section: Logo and Menu */}
+      <div>
+        <div className="flex flex-row items-center mb-6">
+          <Image src={"./chart-donut.svg"} alt="logo" width={40} height={25} />
+          <span className="text-blue-800 dark:text-blue-400 font-bold text-xl">
+            FinanSmart
+          </span>
+        </div>
+        <div>
+          {menuList.map((menu, index) => (
+            <Link href={menu.path} key={index}>
+              <h2
+                className={`flex gap-2 items-center
+                      text-gray-500 dark:text-gray-300 font-medium
+                      mb-2 p-4 cursor-pointer rounded-full
+                      hover:text-primary hover:bg-blue-100 dark:hover:bg-blue-800
+                      ${
+                        path == menu.path &&
+                        "text-primary bg-blue-100 dark:bg-blue-800"
+                      }`}
+              >
+                <menu.icon />
+                {menu.name}
+              </h2>
+            </Link>
+          ))}
+        </div>
       </div>
 
-      {/* Menu Items */}
-      <div className="mt-5">
-        {menuList.map((menu, index) => (
-          <Link href={menu.path} key={index}>
-            <h2
-              className={`flex gap-2 items-center
-                    text-gray-500 dark:text-gray-300 font-medium
-                    mb-2 p-4 cursor-pointer rounded-full
-                    hover:text-primary hover:bg-blue-100 dark:hover:bg-blue-800
-                    ${
-                      path == menu.path &&
-                      "text-primary bg-blue-100 dark:bg-blue-800"
-                    }`}
-            >
-              <menu.icon />
-              {menu.name}
-            </h2>
-          </Link>
-        ))}
-      </div>
-
-      {/* Bottom Section */}
-      <div
-        className="fixed bottom-5 left-5 right-5 p-5 flex flex-col gap-4
-            items-center bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md"
-      >
+      {/* Bottom Section: Dark Mode and Profile */}
+      <div className="space-y-4">
+        {/* Dark Mode Toggle */}
         <button
           onClick={toggleDarkMode}
           className="w-full px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 rounded-md bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all"
         >
           {isDarkMode ? "Light Mode" : "Dark Mode"}
         </button>
-        <div className="flex items-center gap-2 w-full">
+
+        {/* Profile Section */}
+        <div className="flex items-center gap-2">
           <UserButton />
           <span className="text-gray-500 dark:text-gray-300">Profile</span>
         </div>
