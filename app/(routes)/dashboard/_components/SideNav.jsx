@@ -21,15 +21,15 @@ function SideNav() {
     { id: 4, name: "Expenses", icon: ReceiptText, path: "/dashboard/expenses" },
     { id: 5, name: "Upgrade", icon: ShieldCheck, path: "/dashboard/upgrade" },
   ];
-  
+
   const path = usePathname();
 
-  // Load initial theme from localStorage or default to light mode
+  // Load initial theme from localStorage
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme === "dark") {
-      setIsDarkMode(true);
       document.documentElement.classList.add("dark");
+      setIsDarkMode(true);
     }
   }, []);
 
@@ -46,21 +46,21 @@ function SideNav() {
   };
 
   return (
-    <div className="h-screen p-5 border shadow-sm">
+    <div className="h-screen p-5 border shadow-sm bg-gray-100 dark:bg-gray-900">
       <div className="flex flex-row items-center">
         <Image src={"./chart-donut.svg"} alt="logo" width={40} height={25} />
-        <span className="text-blue-800 font-bold text-xl">FinanSmart</span>
+        <span className="text-blue-800 dark:text-blue-300 font-bold text-xl">FinanSmart</span>
       </div>
       <div className="mt-5">
         {menuList.map((menu, index) => (
           <Link href={menu.path} key={index}>
             <h2
               className={`flex gap-2 items-center
-                text-gray-500 font-medium
+                text-gray-500 dark:text-gray-400 font-medium
                 mb-2
                 p-4 cursor-pointer rounded-full
-                hover:text-primary hover:bg-blue-100
-                ${path == menu.path && "text-primary bg-blue-100"}
+                hover:text-primary hover:bg-blue-100 dark:hover:bg-blue-800
+                ${path == menu.path && "text-primary bg-blue-100 dark:bg-blue-800"}
               `}
             >
               <menu.icon />
@@ -69,10 +69,7 @@ function SideNav() {
           </Link>
         ))}
       </div>
-      <div
-        className="fixed bottom-10 p-5 flex flex-col gap-4
-            items-center w-full"
-      >
+      <div className="fixed bottom-10 p-5 flex flex-col gap-4 items-center w-full">
         <button
           onClick={toggleDarkMode}
           className="w-full px-4 py-2 text-sm font-medium text-center rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
