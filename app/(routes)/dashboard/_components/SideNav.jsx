@@ -14,54 +14,78 @@ import Link from "next/link";
 function SideNav() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    if (document.documentElement.classList.contains("dark")) {
+      document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.add("dark");
+    }
+  };
+
   const menuList = [
-    { id: 1, name: "Dashboard", icon: LayoutGrid, path: "/dashboard" },
-    { id: 2, name: "Incomes", icon: CircleDollarSign, path: "/dashboard/incomes" },
-    { id: 3, name: "Budgets", icon: PiggyBank, path: "/dashboard/budgets" },
-    { id: 4, name: "Expenses", icon: ReceiptText, path: "/dashboard/expenses" },
-    { id: 5, name: "Upgrade", icon: ShieldCheck, path: "/dashboard/upgrade" },
+    {
+      id: 1,
+      name: "Dashboard",
+      icon: LayoutGrid,
+      path: "/dashboard",
+    },
+    {
+      id: 2,
+      name: "Incomes",
+      icon: CircleDollarSign,
+      path: "/dashboard/incomes",
+    },
+    {
+      id: 3,
+      name: "Budgets",
+      icon: PiggyBank,
+      path: "/dashboard/budgets",
+    },
+    {
+      id: 4,
+      name: "Expenses",
+      icon: ReceiptText,
+      path: "/dashboard/expenses",
+    },
+    {
+      id: 5,
+      name: "Upgrade",
+      icon: ShieldCheck,
+      path: "/dashboard/upgrade",
+    },
   ];
 
   const path = usePathname();
 
-  // Load initial theme from localStorage
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme === "dark") {
-      document.documentElement.classList.add("dark");
-      setIsDarkMode(true);
-    }
-  }, []);
-
-  // Toggle dark mode and update localStorage
-  const toggleDarkMode = () => {
-    if (isDarkMode) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    } else {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    }
-    setIsDarkMode(!isDarkMode);
-  };
+    console.log(path);
+  }, [path]);
 
   return (
-    <div className="h-screen p-5 border shadow-sm bg-gray-100 dark:bg-gray-900">
+    <div className="h-screen p-5 border shadow-sm bg-gray-50 dark:bg-gray-900">
+      {/* Logo */}
       <div className="flex flex-row items-center">
         <Image src={"./chart-donut.svg"} alt="logo" width={40} height={25} />
-        <span className="text-blue-800 dark:text-blue-300 font-bold text-xl">FinanSmart</span>
+        <span className="text-blue-800 dark:text-blue-400 font-bold text-xl">
+          FinanSmart
+        </span>
       </div>
+
+      {/* Menu Items */}
       <div className="mt-5">
         {menuList.map((menu, index) => (
           <Link href={menu.path} key={index}>
             <h2
               className={`flex gap-2 items-center
-                text-gray-500 dark:text-gray-400 font-medium
-                mb-2
-                p-4 cursor-pointer rounded-full
-                hover:text-primary hover:bg-blue-100 dark:hover:bg-blue-800
-                ${path == menu.path && "text-primary bg-blue-100 dark:bg-blue-800"}
-              `}
+                    text-gray-500 dark:text-gray-300 font-medium
+                    mb-2 p-4 cursor-pointer rounded-full
+                    hover:text-primary hover:bg-blue-100 dark:hover:bg-blue-800
+                    ${
+                      path == menu.path &&
+                      "text-primary bg-blue-100 dark:bg-blue-800"
+                    }`}
             >
               <menu.icon />
               {menu.name}
@@ -69,14 +93,19 @@ function SideNav() {
           </Link>
         ))}
       </div>
-      <div className="fixed bottom-10 p-5 flex flex-col gap-4 items-center w-full">
+
+      {/* Bottom Section */}
+      <div
+        className="fixed bottom-5 left-5 right-5 p-5 flex flex-col gap-4
+            items-center bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md"
+      >
         <button
           onClick={toggleDarkMode}
-          className="w-full px-4 py-2 text-sm font-medium text-center rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
+          className="w-full px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 rounded-md bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all"
         >
           {isDarkMode ? "Light Mode" : "Dark Mode"}
         </button>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full">
           <UserButton />
           <span className="text-gray-500 dark:text-gray-300">Profile</span>
         </div>
